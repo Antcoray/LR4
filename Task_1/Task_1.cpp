@@ -1,30 +1,57 @@
 #include <iostream>
 
 void intro() {
-  std::cout << "=== Задание 8. Выполнил Колесников Антон Сергеевич ==="
-            << std::endl;
-  std::cout << "Эта программа считает выражение a0 - 2 * a1 + 4 * a2 - 8 * a3 "
-               "+ ... + 2^(n-1) * (-1)^(n-1) * an-1 без использования "
-               "вещественной арифметики"
-            << std::endl;
-  std::cout << "*Введите  n = 0 чтобы выйти*\n" << std::endl;
+  std::cout << "Задание 1. Выполнил Колесников Антон Сергеевич" << '\n';
+  std::cout
+      << "Определить количество инверсий в массиве (таких пар элементов, в"
+         "которых большее значение находится слева от меньшего)."
+      << '\n';
+  std::cout << "*Введите  n = 0 чтобы выйти*" << '\n';
 }
 
-int main () {
-    while(true) {
-    double x = 0;
-    bool incorrectInput = false;
-    do {
+int correctInputk() {
+  std::cout << "Введите число k --- число элементов массива" << '\n';
+  int x = 0;
+  bool incorrectInput = false;
+  do {
+    incorrectInput = false;
+    std::cin >> x;
+    if (std::cin.fail() || std::cin.peek() != '\n' || std::cin.peek() == '.') {
+      std::cin.clear();
+      std::cout << "Некорректный ввод. Введите число k" << std::endl;
+      std::cin.ignore(1000000, '\n');
+      incorrectInput = true;
+    }
+  } while (incorrectInput);
+  return x;
+}
+
+double correctInputx(int index) {
+  std::cout << "Введите " << index + 1 << "-й элемент массива" << '\n';
+  double x = 0;
+  bool incorrectInput = false;
+  do {
     incorrectInput = false;
     std::cin >> x;
     if (std::cin.fail() || std::cin.peek() != '\n') {
       std::cin.clear();
-      std::cout << "Некорректный ввод. Введите число n" << std::endl;
+      std::cout << "Некорректный ввод. Введите число k" << std::endl;
       std::cin.ignore(1000000, '\n');
       incorrectInput = true;
     }
-    } while(incorrectInput);
-    std::cout << "CORRECT!!!" << '\n';
+  } while (incorrectInput);
+  return x;
+}
+
+int main() {
+  while (true) {
+    int k = correctInputk();
+    std::cout << "k = " << k << '\n';
+    int array[k];
+    for (int i = 0; i < k; i++) {
+      double x = correctInputx(i);
+      array[i] = x;
     }
-    return 0;
+  }
+  return 0;
 }
