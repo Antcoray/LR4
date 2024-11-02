@@ -55,18 +55,16 @@ int findInversions(double array[], int LastIndex) {
   return inversions;
 }
 
-void OutputInput(double (*)[], int LastIndexM, int LastIndexN) {
-std::cout << "Ваша матрица выглядит так: " << '\n';
+void OutputInput(double* a, int LastIndexM, int LastIndexN) {
+  std::cout << "Ваша матрица выглядит так: " << '\n';
   for(int i = 0; i <= LastIndexM; ++i) {
-  for (int k = 0; k <= LastIndexN; ++k) {
-    std::cout << '[' << array[i][k] << ']' << ' ';
-    if(k == LastIndexN) {
-        std::cout;
+    for(int j = 0; j <= LastIndexN; ++j) {
+      std::cout << '[' <<*(a + (i * (LastIndexM + 1) + j)) << "] ";
     }
+    std::cout << '\n';
   }
-  }
-  std::cout << '\n';
 }
+
 int main() {
   intro();
   while (true) {
@@ -87,7 +85,7 @@ int main() {
         //
       }
     }
-    OutputInput(array,M - 1, N - 1);
+    OutputInput(&array[0][0], M - 1, N - 1);
   }
   return 0;
 }
