@@ -43,16 +43,13 @@ double correctInputx(int indexM, int indexN) {
   return x;
 }
 
-int findInversions(double array[], int LastIndex) {
-  int inversions = 0;
-  for (int i = 0; i <= LastIndex; ++i) {
-    for (int m = i + 1; m <= LastIndex; ++m) {
-      if (array[i] > array[m]) {
-        ++inversions;
-      }
+void FindMinimumInColumns(double* a, int LastIndexM, int LastIndexN) {
+  for(int i = 0; i <= LastIndexN; ++i) {
+    double min = 0;
+    for(int j = 0; j <= LastIndexM; ++j) {
+      
     }
   }
-  return inversions;
 }
 
 void OutputInput(double* a, int LastIndexM, int LastIndexN) {
