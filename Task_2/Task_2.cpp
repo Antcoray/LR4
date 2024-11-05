@@ -49,7 +49,6 @@ void FindMinimumInColumns(double* a, int LastIndexM, int LastIndexN) {
     int i = 0;
     min = *(a + (i * (LastIndexN + 1) + j));
     for (; i <= LastIndexM; ++i) {
- 
       double num = *(a + (i * (LastIndexN + 1) + j));
       if (num <= min) {
         min = num;
