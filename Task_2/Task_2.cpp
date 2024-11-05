@@ -46,9 +46,11 @@ double correctInputx(int indexM, int indexN) {
 void FindMinimumInColumns(double* a, int LastIndexM, int LastIndexN) {
   for (int j = 0; j <= LastIndexN; ++j) {
     double min = 0;
-    for (int i = 0; i <= LastIndexM; ++i) {
-      min = *(a + (i * (LastIndexM + 1) + j));
-      double num = *(a + (i * (LastIndexM + 1) + j));
+    int i = 0;
+    min = *(a + (i * (LastIndexN + 1) + j));
+    for (; i <= LastIndexM; ++i) {
+ 
+      double num = *(a + (i * (LastIndexN + 1) + j));
       if (num <= min) {
         min = num;
       }
@@ -63,7 +65,7 @@ void OutputInput(double* a, int LastIndexM, int LastIndexN) {
   std::cout << "Ваша матрица выглядит так: " << '\n';
   for (int i = 0; i <= LastIndexM; ++i) {
     for (int j = 0; j <= LastIndexN; ++j) {
-      std::cout << '[' << *(a + (i * (LastIndexM + 1) + j)) << "] ";
+      std::cout << '[' << *(a + (i * (LastIndexN + 1) + j)) << "] ";
     }
     std::cout << '\n';
   }
