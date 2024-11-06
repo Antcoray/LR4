@@ -17,7 +17,7 @@ int correctInputMN() {
     std::cin >> x;
     if (std::cin.fail() || std::cin.peek() != '\n' || std::cin.peek() == '.') {
       std::cin.clear();
-      std::cout << "Некорректный ввод. Введите число k" << std::endl;
+      std::cout << "Некорректный ввод. Введите целое число" << std::endl;
       std::cin.ignore(1000000, '\n');
       incorrectInput = true;
     }
@@ -35,7 +35,7 @@ int correctInputx(int indexM, int indexN) {
     std::cin >> x;
     if (std::cin.fail() || std::cin.peek() != '\n' || std::cin.peek() == '.') {
       std::cin.clear();
-      std::cout << "Некорректный ввод. Введите число k" << std::endl;
+      std::cout << "Некорректный ввод. Введите целое число " << std::endl;
       std::cin.ignore(1000000, '\n');
       incorrectInput = true;
     }
