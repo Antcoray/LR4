@@ -1,15 +1,18 @@
 #include <iostream>
 
 void intro() {
-  std::cout << "Задание 2. Выполнил Колесников Антон Сергеевич. Вариант 12"
+  std::cout << "Задание 3. Выполнил Колесников Антон Сергеевич. Вариант 12"
             << '\n';
   std::cout
-      << "Эта программа находит в каждом столбце матрицы минимальный элемент"
+      << "Эта програамма получает из исходной квадратной матрицы порядка N "
+         "целочисленную квадратную матрицу, в которой элемент равен 1,\nесли "
+         "соответствующий ему элемент исходной матрицы больше элемента, "
+         "расположенного на главной диагонали, и равен 0 в противном случае."
       << '\n';
-  std::cout << "*Введите  M = 0 или N = 0 чтобы выйти*" << '\n';
+  std::cout << "*Введите N = 0 чтобы выйти*" << '\n';
 }
 
-int correctInputMN() {
+int correctInputN() {
   int x = 0;
   bool incorrectInput = false;
   do {
@@ -17,15 +20,21 @@ int correctInputMN() {
     std::cin >> x;
     if (std::cin.fail() || std::cin.peek() != '\n' || std::cin.peek() == '.') {
       std::cin.clear();
-      std::cout << "Некорректный ввод. Введите целое число" << std::endl;
+      std::cout << "Некорректный ввод. Введите порядок квадратной матрицы"
+                << std::endl;
       std::cin.ignore(1000000, '\n');
+      incorrectInput = true;
+    }
+    if (x < 0) {
+      std::cout << "Некорректный ввод. Введите порядок квадратной матрицы"
+                << std::endl;
       incorrectInput = true;
     }
   } while (incorrectInput);
   return x;
 }
 
-int correctInputx(int indexM, int indexN) {
+double correctInputx(int indexM, int indexN) {
   std::cout << "Введите " << indexN + 1 << "-й элемент " << indexM + 1
             << "-й строки" << '\n';
   double x = 0;
@@ -33,7 +42,7 @@ int correctInputx(int indexM, int indexN) {
   do {
     incorrectInput = false;
     std::cin >> x;
-    if (std::cin.fail() || std::cin.peek() != '\n' || std::cin.peek() == '.') {
+    if (std::cin.fail() || std::cin.peek() != '\n') {
       std::cin.clear();
       std::cout << "Некорректный ввод. Введите целое число " << std::endl;
       std::cin.ignore(1000000, '\n');
@@ -43,55 +52,61 @@ int correctInputx(int indexM, int indexN) {
   return x;
 }
 
-void FindMinimumInColumns(int* a, int LastIndexM, int LastIndexN) {
-  for (int j = 0; j <= LastIndexN; ++j) {
-    double min = 0;
-    int i = 0;
-    min = *(a + (i * (LastIndexN + 1) + j));
-    for (; i <= LastIndexM; ++i) {
-      double num = *(a + (i * (LastIndexN + 1) + j));
-      if (num <= min) {
-        min = num;
-      }
-    }
-    std::cout << "Минимальное значение в " << j + 1 << "-м"
-              << " столбце матрицы"
-              << " равно " << min << '\n';
-  }
-}
-
-void OutputInput(int* a, int LastIndexM, int LastIndexN) {
-  std::cout << "Ваша матрица выглядит так: " << '\n';
+void BuildNewMatrix(double** array, int LastIndexM, int LastIndexN) {
+  std::cout << "Новая матрица выглядит так:\n";
   for (int i = 0; i <= LastIndexM; ++i) {
     for (int j = 0; j <= LastIndexN; ++j) {
-      std::cout << '[' << *(a + (i * (LastIndexN + 1) + j)) << "] ";
+      if (array[i][j] > array[i][i]) {
+        std::cout << '[' << 1 << "] ";
+      } else {
+        std::cout << '[' << 0 << "] ";
+      }
     }
     std::cout << '\n';
   }
 }
 
+void OutputInput(double** array, int LastIndexM, int LastIndexN) {
+  std::cout << "Исходная матрица выглядит так: " << '\n';
+  for (int i = 0; i <= LastIndexM; ++i) {
+    for (int j = 0; j <= LastIndexN; ++j) {
+      if (i != j) {
+        std::cout << '[' << array[i][j] << "] ";
+      } else {
+        std::cout << '(' << array[i][j] << ") ";
+      }
+    }
+    std::cout << '\n';
+  }
+  std::cout << "элементы главной диагонали обозначены как (x)" << '\n';
+}
+
 int main() {
   intro();
   while (true) {
-    std::cout << "Введите число M --- число строк матрицы" << '\n';
-    int M = correctInputMN();
-    if (M == 0) {
-      break;
-    }
-    std::cout << "Введите число N --- число столбцов матрицы" << '\n';
-    int N = correctInputMN();
+    std::cout << "Введите число N --- порядок квадратной матрицы" << '\n';
+    int N = correctInputN();
     if (N == 0) {
       break;
     }
-    int array[M][N];
-    for (int i = 0; i <= M - 1; ++i) {
+
+    double** array = new double*[N];
+    for (int i = 0; i < N; ++i) {
+      array[i] = new double[N];
+    }
+    for (int i = 0; i <= N - 1; ++i) {
       for (int k = 0; k <= N - 1; ++k) {
         array[i][k] = correctInputx(i, k);
         //
       }
     }
-    OutputInput(&array[0][0], M - 1, N - 1);
-    FindMinimumInColumns(&array[0][0], M - 1, N - 1);
+    OutputInput(array, N - 1, N - 1);
+    BuildNewMatrix(array, N - 1, N - 1);
+
+    for (int i = 0; i < N; ++i) {
+      delete[] array[i];
+    }
+    delete[] array;
   }
   return 0;
 }
