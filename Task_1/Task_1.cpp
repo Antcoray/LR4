@@ -36,7 +36,7 @@ double correctInputx(int index) {
     std::cin >> x;
     if (std::cin.fail() || std::cin.peek() != '\n') {
       std::cin.clear();
-      std::cout << "Некорректный ввод. Введите число k" << std::endl;
+      std::cout << "Некорректный ввод. Введите элемент массива" << std::endl;
       std::cin.ignore(1000000, '\n');
       incorrectInput = true;
     }
