@@ -87,11 +87,11 @@ int main() {
     if (N == 0) {
       break;
     }
+
     int array[M][N];
     for (int i = 0; i <= M - 1; ++i) {
       for (int k = 0; k <= N - 1; ++k) {
         array[i][k] = correctInputx(i, k);
-        //
       }
     }
     OutputInput(&array[0][0], M - 1, N - 1);
